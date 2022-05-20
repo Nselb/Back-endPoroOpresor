@@ -39,7 +39,7 @@ namespace Back_end_Poro_Opresor.Controllers
                     return true;
                 }
                 return false;
-                
+
             }
             catch (Exception)
             {
@@ -73,7 +73,7 @@ namespace Back_end_Poro_Opresor.Controllers
 
         private async Task<bool> GetGameData(Summoner summoner, string server)
         {
-            HttpClient client = new ();
+            HttpClient client = new();
             client.DefaultRequestHeaders.Add("X-Riot-Token", Urls.APIKey);
             string url = $"https://{Urls.GetRoutingValue(server)}{Urls.LeagueBaseUrl}/lol/match/v5/matches/by-puuid/{summoner.PUUID}/ids?count=10";
             List<string> matchIds = await client.GetFromJsonAsync<List<string>>(url);
@@ -86,7 +86,7 @@ namespace Back_end_Poro_Opresor.Controllers
                     url = $"https://{Urls.GetRoutingValue(server)}{Urls.LeagueBaseUrl}/lol/match/v5/matches/{matchId}";
                     var res = await client.GetStringAsync(url);
                     dynamic gameData = JObject.Parse(res);
-                    Game game = new ()
+                    Game game = new()
                     {
                         GameStartTimestamp = gameData.info.gameStartTimestamp,
                         GameDuration = gameData.info.gameDuration,
@@ -103,80 +103,79 @@ namespace Back_end_Poro_Opresor.Controllers
                         {
                             try
                             {
+                                int coso = item.assists;
                                 GameStats stats = new()
                                 {
-                                    Assists = int.Parse(item.assists as string),
-                                    ChampLevel = int.Parse(item.championLevel as string),
-                                    ChampionId = int.Parse(item.championId as string),
-                                    Deaths = int.Parse(item.deaths as string),
-                                    Doubles = int.Parse(item.doubleKills as string),
+                                    Assists = item.assists,
+                                    Kills = item.kills,
+                                    Quadras = item.quadraKills,
+                                    Win = item.win,
+                                    Items1 = item.item0,
+                                    Items2 = item.item1,
+                                    Items3 = item.item2,
+                                    Items4 = item.item3,
+                                    Items5 = item.item4,
+                                    Items6 = item.item5,
                                     GameId = game.GameId,
-                                    Items1 = int.Parse(item.item0 as string),
-                                    Items2 = int.Parse(item.item1 as string),
-                                    Items3 = int.Parse(item.item2 as string),
-                                    Items4 = int.Parse(item.item3 as string),
-                                    Items5 = int.Parse(item.item4 as string),
-                                    Items6 = int.Parse(item.item5 as string),
-                                    Kills = int.Parse(item.kills as string),
-                                    Pentas = int.Parse(item.pentaKills as string),
-                                    Quadras = int.Parse(item.quadraKills as string),
-                                    TotalDamageDealtToChampions = int.Parse(item.totalDamageDealtToChampions as string),
-                                    TotalMinions = int.Parse(item.totalMinionsKilled as string),
-                                    Triples = int.Parse(item.tripleKills as string),
-                                    Win = bool.Parse(item.wins as string),
+                                    ChampionId = item.championId,
+                                    ChampLevel = item.champLevel,
+                                    Deaths = item.deaths,
+                                    Doubles = item.doubleKills,
+                                    Triples = item.tripleKills,
+                                    Pentas = item.pentaKills,
+                                    TotalDamageDealtToChampions = item.totalDamageDealtToChampions,
+                                    TotalMinions = item.totalMinionsKilled
                                 };
-
                                 db.GameStats.Add(stats);
                                 db.SaveChanges();
                                 AdvancedGameStats advancedGameStats = new()
                                 {
-                                    StatsId = stats.StatsId,
                                     ChampionName = item.championName,
-                                    DamagDealtToObjectives = int.Parse(item.damagDealtToObjectives),
-                                    DamageDealtToBuildings = int.Parse(item.damageDealtToBuildings),
-                                    DamageDealtToTowers = int.Parse(item.damageDealtToTowers),
-                                    DamageSelfMitigated = int.Parse(item.damageSelfMitigated),
-                                    DetectorWardsPlaced = int.Parse(item.detectorWardsPlaced),
-                                    DragonKills = int.Parse(item.dragonKills),
-                                    FirstBloodAssit = item.firstBloodAssit,
+                                    DamagDealtToObjectives = item.damageDealtToObjectives,
+                                    DamageDealtToBuildings = item.damageDealtToBuildings,
+                                    DamageDealtToTowers = item.damageDealtToTurrets,
+                                    DamageSelfMitigated = item.damageSelfMitigated,
+                                    DetectorWardsPlaced = item.detectorWardsPlaced,
+                                    DragonKills = item.dragonKills,
+                                    FirstBloodAssit = item.firstBloodAssist,
                                     FirstBloodKill = item.firstBloodKill,
-                                    FirstTowerAssits = item.firstTowerAssits,
+                                    FirstTowerAssits = item.firstTowerAssist,
                                     FirstTowerKill = item.firstTowerKill,
-                                    GoldEarned = int.Parse(item.goldEarned),
-                                    GoldSpent = int.Parse(item.goldSpent),
-                                    InhibitorKills = int.Parse(item.inhibitorKills),
-                                    InhibitorTakedowns = int.Parse(item.inhibitorTakedowns),
-                                    InhibitorsLost = int.Parse(item.inhibitorsLost),
-                                    LargetstCriticalStrike = int.Parse(item.largetstCriticalStrike),
-                                    MagicDamageDealtToChampions = int.Parse(item.magicDamageDealtToChampions),
-                                    MagicDamageTaken = int.Parse(item.magicDamageTaken),
-                                    ObjectivesStolen = int.Parse(item.objectivesStolen),
-                                    PhysicalDamagDealtToChampions = int.Parse(item.physicalDamageDealtToChampions),
-                                    PhysicalDamageTaken = int.Parse(item.physicalDamageTaken),
-                                    Spell1Casts = int.Parse(item.spell1Casts),
-                                    Spell2Casts = int.Parse(item.spell2Casts),
-                                    Spell3Casts = int.Parse(item.spell3Casts),
-                                    Spell4Casts = int.Parse(item.spell4Casts),
-                                    Summoner1Casts = int.Parse(item.summoner1Casts),
-                                    Summoner1Id = int.Parse(item.summoner1Id),
-                                    Summoner2Cast = int.Parse(item.summoner2Casts),
-                                    Summoner2Id = int.Parse(item.summoner2Id),
+                                    GoldEarned = item.goldEarned,
+                                    GoldSpent = item.goldSpent,
+                                    InhibitorKills = item.inhibitorKills,
+                                    InhibitorsLost = item.inhibitorsLost,
+                                    InhibitorTakedowns = item.inhibitorTakedowns,
+                                    LargetstCriticalStrike = item.largestCriticalStrike,
+                                    MagicDamageDealtToChampions = item.magicDamageDealtToChampions,
+                                    MagicDamageTaken = item.magicDamageTaken,
+                                    ObjectivesStolen = item.objectivesStolen,
+                                    PhysicalDamagDealtToChampions = item.physicalDamageDealtToChampions,
+                                    PhysicalDamageTaken = item.physicalDamageTaken,
+                                    Spell1Casts = item.spell1Casts,
+                                    Spell2Casts = item.spell2Casts,
+                                    Spell3Casts = item.spell3Casts,
+                                    Spell4Casts = item.spell4Casts,
+                                    StatsId = stats.StatsId,
+                                    Summoner1Casts = item.summoner1Casts,
+                                    Summoner1Id = item.summoner1Id,
+                                    Summoner2Cast = item.summoner2Casts,
+                                    Summoner2Id = item.summoner2Id,
                                     TeamPosition = item.teamPosition,
-                                    TimeCCingOthers = int.Parse(item.timeCCingOthers),
-                                    TotalDamageShieldedOnTeammates = int.Parse(item.totalDamageShieldedOnTeammates),
-                                    TrueDamageDealtToChampions = int.Parse(item.trueDamageDealtToChampions),
-                                    TrueDamageTaken = int.Parse(item.trueDamageTaken),
-                                    TurretKills = int.Parse(item.turretKills),
-                                    TurretTakedowns = int.Parse(item.turretTakedowns),
-                                    TurretsLost = int.Parse(item.turretsLost),
-                                    VisionScore = int.Parse(item.visionScore),
-                                    WardsKilled = int.Parse(item.wardsKilled),
-                                    WardsPlaced = int.Parse(item.wardsPlaced)
+                                    TimeCCingOthers = item.timeCCingOthers,
+                                    TotalDamageShieldedOnTeammates = item.totalDamageShieldedOnTeammates,
+                                    TrueDamageDealtToChampions = item.trueDamageDealtToChampions,
+                                    TrueDamageTaken = item.trueDamageTaken,
+                                    TurretKills = item.turretKills,
+                                    TurretsLost = item.turretsLost,
+                                    TurretTakedowns = item.turretTakedowns,
+                                    VisionScore = item.visionScore,
+                                    WardsKilled = item.wardsKilled,
+                                    WardsPlaced = item.wardsPlaced
                                 };
+
                                 db.AdvancedGameStats.Add(advancedGameStats);
                                 db.SaveChanges();
-
-                                return true;
                             }
                             catch (Exception)
                             {
@@ -203,7 +202,8 @@ namespace Back_end_Poro_Opresor.Controllers
                     return true;
                 }
                 return false;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return false;
             }
