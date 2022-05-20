@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Back-end Poro Opresor", "Back-end Poro Opresor\Back-end Poro Opresor.csproj", "{599444CC-16BC-4B7D-812A-19D411FDCB55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C215BDB8-CC3D-4BE7-8FF9-AC262EA8C8DA}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{599444CC-16BC-4B7D-812A-19D411FDCB55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{599444CC-16BC-4B7D-812A-19D411FDCB55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{599444CC-16BC-4B7D-812A-19D411FDCB55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{599444CC-16BC-4B7D-812A-19D411FDCB55}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A8DF414E-6F19-4D4A-B8EE-FF58D83EE6A7}
+	EndGlobalSection
+EndGlobal
