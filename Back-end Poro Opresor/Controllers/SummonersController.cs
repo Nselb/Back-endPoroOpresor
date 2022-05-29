@@ -22,7 +22,7 @@ namespace Back_end_Poro_Opresor.Controllers
             return db.Summoners.ToList();
         }
         [HttpPost]
-        public static bool PostSummoner( [FromBody] Summoner summoner)
+        public bool PostSummoner( [FromBody] Summoner summoner)
         {
             try
             {

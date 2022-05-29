@@ -39,7 +39,6 @@ namespace Back_end_Poro_Opresor.Controllers
                     return true;
                 }
                 return false;
-
             }
             catch (Exception)
             {
@@ -173,7 +172,6 @@ namespace Back_end_Poro_Opresor.Controllers
                                     WardsKilled = item.wardsKilled,
                                     WardsPlaced = item.wardsPlaced
                                 };
-
                                 db.AdvancedGameStats.Add(advancedGameStats);
                                 db.SaveChanges();
                             }
@@ -194,14 +192,22 @@ namespace Back_end_Poro_Opresor.Controllers
             try
             {
                 User user = db.Users.Find(id);
-                if (user != null)
+                if (user == null) return false;
+                Summoner s = db.Summoners.Find(user.SummonerId);
+                if (s == null) return false;
+                foreach (var game in db.Games.Where(u => u.SummonerId.Equals(s.ID)))
                 {
-
-                    db.Users.Remove(user);
-                    db.SaveChanges();
-                    return true;
+                    GameStats stat = db.GameStats.Where(stat => stat.GameId == game.GameId).First();
+                    AdvancedGameStats advstat = db.AdvancedGameStats.Where(adv => adv.StatsId == stat.StatsId).First();
+                    db.AdvancedGameStats.Remove(advstat);
+                    db.GameStats.Remove(stat);
+                    db.Games.Remove(game);
                 }
-                return false;
+                db.Users.Remove(user);
+                db.SaveChanges();
+                db.Summoners.Remove(s);
+                db.SaveChanges();
+                return true;
             }
             catch (Exception)
             {

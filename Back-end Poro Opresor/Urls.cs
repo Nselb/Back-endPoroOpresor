@@ -3,7 +3,7 @@
     public static class Urls
     {
         public static string LeagueBaseUrl = ".api.riotgames.com";
-        public static string APIKey = "RGAPI-2d4b8874-12b3-46a8-882d-d1a43cd6eea6";
+        public static string APIKey = "RGAPI-e77b9b12-274d-4e09-b30d-c84911988cd2";
         public static string GetRoutingValue(string server)
         {
             return server switch
