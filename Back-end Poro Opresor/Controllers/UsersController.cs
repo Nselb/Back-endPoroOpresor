@@ -21,11 +21,13 @@ namespace Back_end_Poro_Opresor.Controllers
         {
             return db.Users.ToList();
         }
+
         [HttpGet("{id}")]
         public User? GetUser(int id)
         {
             return db.Users.Find(id);
         }
+
         [HttpPost]
         public async Task<string> PostUser([FromBody] User user)
         {
@@ -76,8 +78,6 @@ namespace Back_end_Poro_Opresor.Controllers
             return null;
         }
 
-        
-
         [HttpDelete("{id}")]
         public bool DeleteUser(int id)
         {
@@ -124,14 +124,14 @@ namespace Back_end_Poro_Opresor.Controllers
                 return false;
             }
         }
-
         [HttpGet("{email}/{password}")]
-        public User? Login(string email, string password)
+        public User Login(string email, string password)
         {
-            User user = db.Users.Where(u => u.Email.Equals(email)
-                                            && Crypto.VerifyHashedPassword(u.UserPassword, password))
-                                .FirstOrDefault();
-            return user;
+            User user = db.Users.Where(u => (u.Email.Equals(email))).FirstOrDefault();
+            if (user == null) return null;
+            bool pass = Crypto.VerifyHashedPassword(user.UserPassword, password);
+            if (pass) return user;
+            else return null;
         }
     }
 }

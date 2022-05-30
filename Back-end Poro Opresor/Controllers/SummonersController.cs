@@ -21,6 +21,11 @@ namespace Back_end_Poro_Opresor.Controllers
         {
             return db.Summoners.ToList();
         }
+        [HttpGet("{summonerId}")]
+        public Summoner GetSummoner(string summonerId)
+        {
+            return db.Summoners.Where(s => s.ID.Equals(summonerId)).FirstOrDefault();
+        }
         [HttpPost]
         public bool PostSummoner( [FromBody] Summoner summoner)
         {
