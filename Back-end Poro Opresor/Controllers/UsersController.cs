@@ -11,6 +11,7 @@ namespace Back_end_Poro_Opresor.Controllers
     {
         private readonly GameDBContext db;
 
+
         public UsersController(GameDBContext context)
         {
             db = context;
@@ -29,13 +30,13 @@ namespace Back_end_Poro_Opresor.Controllers
         }
 
         [HttpPost]
-        public async Task<string> PostUser([FromBody] User user)
+        public async Task<User> PostUser([FromBody] User user)
         {
             try
             {
                 if (db.Users.Where(u => u.Email.Equals(user.Email)).FirstOrDefault() != null)
                 {
-                    return "Correo ya ha sido usado!";
+                    return null;
                 }
                 Summoner s = await GetSummonerData(user);
                 if (s != null)
@@ -44,14 +45,14 @@ namespace Back_end_Poro_Opresor.Controllers
                     user.UserPassword = Crypto.HashPassword(user.UserPassword);
                     db.Users.Add(user);
                     db.SaveChanges();
-                    return "Usuario creado";
+                    return user;
                 }
-                return "No ha sido posible crear el usuario";
+                return null;
             }
             catch (Exception)
             {
 
-                return "No ha sido posible crear el usuario";
+                return null;
             }
         }
 

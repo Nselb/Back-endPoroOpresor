@@ -9,12 +9,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<GameDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("GameStatsConnectionString")));
+builder.Services.AddDbContext<GameDBContext>(opt => 
+opt.UseSqlServer(builder.Configuration.GetConnectionString("GameStatsConnectionString"))
+);
 builder.Services.AddCors(opt =>
 {
     opt.AddDefaultPolicy( policy =>
     {
         policy.WithOrigins("http://localhost:3000");
+        policy.WithOrigins("http://192.168.200.26:3000");
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
     });

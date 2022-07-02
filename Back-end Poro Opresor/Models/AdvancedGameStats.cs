@@ -7,7 +7,7 @@ namespace Back_end_Poro_Opresor.Models
         [Key]
         public int AdvancedGameStatsId { get; set; }
         public int StatsId { get; set; }
-        public string ChampionName { get; set; }
+        public string ChampionName { get; set; } = String.Empty;
         public int DamageDealtToBuildings { get; set; }
         public int DamagDealtToObjectives { get; set; }
         public int DamageDealtToTowers { get; set; }
@@ -20,7 +20,7 @@ namespace Back_end_Poro_Opresor.Models
         public bool FirstTowerKill { get; set; }
         public int GoldEarned { get; set; }
         public int GoldSpent { get; set; }
-        public string TeamPosition { get; set; }
+        public string TeamPosition { get; set; } = String.Empty;
         public int InhibitorKills { get; set; }
         public int InhibitorTakedowns { get; set; }
         public int InhibitorsLost { get; set; }

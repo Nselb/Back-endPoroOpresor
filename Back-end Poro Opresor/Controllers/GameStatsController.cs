@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Back_end_Poro_Opresor.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Back_end_Poro_Opresor.Controllers
@@ -12,6 +13,12 @@ namespace Back_end_Poro_Opresor.Controllers
         public GameStatsController(GameDBContext context)
         {
             db = context;
+        }
+
+        [HttpGet]
+        public GameStats GetGameStats(int gameId)
+        {
+            return db.GameStats.Where(gs => gs.GameId == gameId).FirstOrDefault();
         }
     }
 }

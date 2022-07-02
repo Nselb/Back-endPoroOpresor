@@ -38,7 +38,6 @@ namespace Back_end_Poro_Opresor.Controllers
             catch (Exception)
             {
                 return false;
-                throw;
             }
         }
     }

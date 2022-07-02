@@ -12,6 +12,6 @@ namespace Back_end_Poro_Opresor
         public DbSet<Game> Games { get; set; }
         public DbSet<AdvancedGameStats> AdvancedGameStats { get; set; }
         public DbSet<League> Leagues { get; set; }
-        public DbSet<ChampionMastery> ChampionMasteries { get; set; }
+        public DbSet<ChampionMastery> ChampionMastery { get; set; }
     }
 }
